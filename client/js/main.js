@@ -1,18 +1,13 @@
-
-
-var app = angular.module('myApp', ['ngRoute', 'myApp.controllers', 'myApp.services']);
-
-
-
+var app = angular.module('myBlogApp', ['ngRoute', 'myBlogApp.controllers', 'myBlogApp.services']);
 
 app.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			controller:"",
+			controller:"WelcomeController",
 			templateUrl: "../views/blogposts.html"
 		})
 		.when('/newpost', {
-			controller: "",
+			controller: "PostController",
 			templateUrl: "../views/newpost.html"
 		})
 		.otherwise({

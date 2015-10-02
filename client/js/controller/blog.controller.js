@@ -1,64 +1,41 @@
 //Logic for page actions here. 
 
-var app = angular.module('myApp.controllers', ['ngRoute']);
+var app = angular.module('myBlogApp.controllers', ['ngRoute']);
 
-app.controller('SampleController', ['$scope', function($scope){
-	
+app.controller('WelcomeController', ['$scope', 'WalterBlogAngular', function($scope, WalterBlogAngular){
+	$scope.posts = [];
+	WalterBlogAngular.getItems().then(function(blogPosts) {
+		blogPosts.forEach(function(post) {
+			$scope.posts.unshift(post);
+		});
+		// for (var i = 0; i < blogPosts.length; i++ ){
+		// 	$scope.posts.push(blogPosts[i]);
+		// }
+	});
 }]);
 
-
-
-// var app = angular.module('myApp', ['ngRoute']);
-// 	app.controller('MyController', ['$scope', function($scope){
-
-// 	}]);
-	
-// 	app.controller('WelcomeController', ['$scope', '$location', function ($scope, $location) {
-// 		$scope.continueToNext = function() {
-// 			$location.path('/tweets');
-// 		};
-// 	}]);
-	
-// 	app.controller('TweetsController', ['$scope', '$http', function($scope, $http) {
-// 		$scope.name = '';
-// 		$scope.twit = '';
-// 		$scope.tweets = [];
-
-
-//Use to instantiate app, connect factory & controllers and configure app.
-
-		// $scope.submitTweet = function() {
-		// 	//push to array, make spaces blank
-		// 	console.log('inside submitTweet!');
-		// 	var tweet = {
-		// 		text: $scope.twit,
-		// 		user: $scope.name,
-		// 		date: new Date()
-		// 	};
-		// 	$http.post('/messages', tweet)
-	// 	// 		.success(function() {
-	// 	// 			$scope.name = '';
-	// 	// 			$scope.twit = '';
-	// 	// 			$scope.tweets.unshift(tweet);
-
-	// 			})
-	// 			.error(function(err) {
-	// 				console.error(err);
-	// 			});
-	// 	};
-	
-	// 	$http.get('/messages')
-	// 		.success(function(tweets) {
-	// 			console.log('got tweets');
-	// 			console.log(tweets);
-	// 		tweets.forEach(function(tweet) {
-	// 		console.log('i am inside the forEach function');
-	// 			$scope.tweets.unshift(tweet);
-	// 			//^returns tweets in reverse order
-	// 		})
-	// 		})
-	// 		.error(function(err) {
-	// 			console.error(err);
-	// 		});
+	app.controller('PostController', ['$scope', 'WalterBlogAngular', function($scope, WalterBlogAngular) {
+		//$scope.name = '';
+		$scope.post = '';
+		$scope.posts = [];
 		
-	// }]);
+		$scope.submitPost = function() {
+			//push to array, make spaces blank
+			console.log('inside submitPost!');
+			var post = {
+				text: $scope.post,
+				//user: $scope.name,
+				date: new Date()
+			};
+		WalterBlogAngular.getItems()
+			.then(function(items) {
+				
+			});
+			
+		WalterBlogAngular.postItem()
+			.then(function(items) {
+				
+			});
+		}
+		
+	}]);
