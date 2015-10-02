@@ -13,6 +13,7 @@ app.config(function($routeProvider) {
 		.otherwise({
 			redirectTo: '/'
 		});
+		console.log('inside $routeProvider')
 });
 
 	// app.config(function($routeProvider){

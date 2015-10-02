@@ -5,13 +5,31 @@ var app = angular.module('myBlogApp.controllers', ['ngRoute']);
 app.controller('WelcomeController', ['$scope', 'WalterBlogAngular', function($scope, WalterBlogAngular){
 	$scope.posts = [];
 	WalterBlogAngular.getItems().then(function(blogPosts) {
-		blogPosts.forEach(function(post) {
+		blogPosts.results.forEach(function(post) {
 			$scope.posts.unshift(post);
 		});
 		// for (var i = 0; i < blogPosts.length; i++ ){
 		// 	$scope.posts.push(blogPosts[i]);
 		// }
 	});
+	
+		$scope.submitPost = function() {
+			//push to array, make spaces blank
+			console.log('really inside submitPost!');
+			var post = {
+				text: $scope.post,
+				//user: $scope.name,
+				date: new Date()
+			};
+			
+			WalterBlogAngular.postItem(post).then(function (response) {
+				$scope.posts.unshift(post);
+				
+				console.log($scope.posts);
+				
+				$scope.post = null;
+			});
+		}
 }]);
 
 	app.controller('PostController', ['$scope', 'WalterBlogAngular', function($scope, WalterBlogAngular) {
@@ -27,15 +45,28 @@ app.controller('WelcomeController', ['$scope', 'WalterBlogAngular', function($sc
 				//user: $scope.name,
 				date: new Date()
 			};
-		WalterBlogAngular.getItems()
-			.then(function(items) {
-				
-			});
 			
-		WalterBlogAngular.postItem()
-			.then(function(items) {
-				
-			});
-		}
+			$scope.post('../views/blogposts', post)
+				.success(function() {
+					console.log('I am inside the success function');
+					$scope.post = '';
+					$scope.posts.unshift(post);
+				})
+				.error(function(err) {
+					console.log('I am inside the error function');
+					console.error(err);
+				});
+	}
+		
+		
+	WalterBlogAngular.getItems()
+		.then(function(items) {
+		console.log('inside controller getItems')
+		});
+		
+	WalterBlogAngular.postItem()
+		.then(function(items) {
+		console.log('inside controller postItems')	
+		});
 		
 	}]);

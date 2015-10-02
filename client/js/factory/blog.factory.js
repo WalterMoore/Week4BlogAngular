@@ -17,19 +17,23 @@ ParseFactory.getItems = function() {
         method : 'GET',
         url : parseURL,
         headers: reqHeaders
+      
     }).then(function(response) {
         return response.data;
     });
+    console.log('inside ParseFactory getItems')
 };
 
 ParseFactory.postItem = function(item) {
     return $http({
         method: 'POST',
         url: parseURL,
-        headers : reqHeaders
+        headers : reqHeaders,
+        data: item
     }).then(function(response) {
         return response;
     });
+    console.log('inside ParseFactory postItems')
 }
 
 return ParseFactory;
